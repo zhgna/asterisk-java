@@ -4,7 +4,7 @@
 	<groupId>org.asteriskjava</groupId>
 	<artifactId>asterisk-java</artifactId>
 	<name>Asterisk-Java</name>
-	<version>1.1.0-beta</version>
+	<version>1.1.1-beta</version>
 	<description>The free Java library for Asterisk PBX integration.</description>
 	<inceptionYear>2004</inceptionYear>
 
@@ -104,6 +104,26 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<useDefaultManifestFile>true</useDefaultManifestFile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>biz.aQute.bnd</groupId>
+				<artifactId>bnd-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>bnd-process</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.3</version>
 				<configuration>
@@ -126,12 +146,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.18</version>
 			</plugin>
-
-
-
-
-
-
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.5.3</version>
@@ -150,8 +164,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
 		</plugins>
 		<finalName>${project.artifactId}</finalName>
 	</build>
@@ -188,31 +200,6 @@
 		</dependency>
 	</dependencies>
 	<profiles>
-		<profile>
-			<id>cli</id>
-
-			<build>
-				<plugins>
-					<!-- THIS IS INCOMPATIBLE WITH PUSHING TO MAVEN CENTRAL -->
-					<!-- so it's in it's own profile if anyone wants to build it -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>2.5</version>
-						<configuration>
-							<archive>
-								<manifest>
-									<mainClass>org.asteriskjava.Cli</mainClass>
-								</manifest>
-
-							</archive>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-
-
-		</profile>
 		<profile>
 			<id>release</id>
 			<build>
@@ -282,7 +269,7 @@
 						<configuration>
 							<serverId>ossrh</serverId>
 							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
 						</configuration>
 					</plugin>
 				</plugins>
