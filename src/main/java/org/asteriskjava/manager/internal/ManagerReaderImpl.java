@@ -343,11 +343,7 @@ public class ManagerReaderImpl implements ManagerReader
         final String internalActionId = ManagerUtil.getInternalActionId(actionId);
         if (internalActionId != null)
         {
-            responseClass = expectedResponseClasses.get(internalActionId);
-            if (responseClass != null)
-            {
-                expectedResponseClasses.remove(internalActionId);
-            }
+            responseClass = expectedResponseClasses.remove(internalActionId);
         }
 
         final ManagerResponse response = responseBuilder.buildResponse(responseClass, buffer);
@@ -372,5 +368,13 @@ public class ManagerReaderImpl implements ManagerReader
         }
 
         return event;
+    }
+
+    @Override
+    public void deregisterEventClass(Class< ? extends ManagerEvent> eventClass)
+    {
+
+        eventBuilder.deregisterEventClass(eventClass);
+
     }
 }
